@@ -62,10 +62,8 @@ def on_error(ws, error):
 
 
 # 收到websocket关闭的处理
-def on_close(ws, msg1,msg2):
+def on_close(ws):
     print("### closed ###")
-    print(msg1)
-    print(msg2)
 
 
 # 收到websocket连接建立的处理
@@ -134,8 +132,8 @@ def main(appid, api_key, api_secret, gpt_url, question):
 
 if __name__ == "__main__":
     # 测试时候在此处正确填写相关信息即可运行
-    main(appid="32aaafa0",
-         api_key="4fe64908cf009cc70651234f443a6ba7",
-         api_secret="NGRiYmQwZmY3NzFkYzUyNjk3NjRmMzBj",
-         gpt_url="ws://spark-api.xf-yun.com/v1.1/chat",
-         question="你热爱生命吗")
+    main(appid="",
+         api_key="",
+         api_secret="",
+         gpt_url="",
+         question="你是谁？你能做什么？")

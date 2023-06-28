@@ -81,11 +81,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 如果选中的菜单项是chatBtn，显示相关元素（div5、div6）
-    if (lastSelectedMenuId === 'chatBtn') {
-        showChatBox(true);
-    } else {
-        showChatBox(false);
-    }
+    // if (lastSelectedMenuId === 'chatBtn') {
+    showChatBox(true);
+    // } else {
+    //     showChatBox(false);
+    // }
 
 
     // 为输入框添加输入事件监听器
@@ -141,7 +141,7 @@ function parseHeaders(headerStr) {
 //Cookie转换主函数
 function cookieTransform(inputText) {
 
-// 如果输入为空，将输出清空并返回
+    // 如果输入为空，将输出清空并返回
     if (!inputText.trim()) {
         output.value = '';
         return;
@@ -186,7 +186,7 @@ function curlTransform(inputText) {
     const url = '/c';
     fetch(url, {
         method: 'POST',
-        body: JSON.stringify({input_str: inputText})
+        body: JSON.stringify({ input_str: inputText })
     })
         .then(response => {
             if (response.ok) {
@@ -246,7 +246,7 @@ function translate(inputText) {
     const url = '/t';
     fetch(url, {
         method: 'POST',
-        body: JSON.stringify({input_str: inputText})
+        body: JSON.stringify({ input_str: inputText })
     })
         .then(response => {
             if (response.ok) {
@@ -344,7 +344,7 @@ function ocrTransform(input) {
             'Content-Type': 'application/x-www-form-urlencoded',
             'Accept': 'application/json'
         },
-        body: JSON.stringify({image: inputText})
+        body: JSON.stringify({ image: inputText })
     })
         .then(response => {
             if (response.ok) {
@@ -486,7 +486,7 @@ copyBtn.addEventListener('click', () => {
     if (selectedid !== 'chatBtn') {
         // 如果输出框没有文本内容，弹出提示
         if (!output.value) {
-            layer.msg('输出框为空，无法复制', {offset: [$(window).height() - 450], icon: 2, time: 1000});
+            layer.msg('输出框为空，无法复制', { offset: [$(window).height() - 450], icon: 2, time: 1000 });
             return;
         }
         // 选中输出框的文本内容
@@ -598,9 +598,8 @@ let isTyping = false;
 const host = window.location.hostname;
 const port = window.location.port;
 let url = `ws://${host}:${port}/chat`;
-if (host === 'chat250.top') {
+if (host === 'xunfei.qiangtu.com') {
     url = `wss://${host}/chat`;
-
 }
 
 let socket = null;
@@ -641,14 +640,12 @@ function connect() {
             savelastmsg7list(receivedData.lastmsg7list)
             isTyping = false;
         }
-        if (receivedData.lastmsg8list) {
-            isTyping = false;
-        }
         if (receivedData.lastmsg9list) {
             savelastmsg9list(receivedData.lastmsg9list)
             isTyping = false;
         }
-        const replyElement = document.getElementById('temporary-reply').querySelector('.message');
+        const replyElementMaster = document.getElementById('temporary-reply');
+        const replyElement = replyElementMaster.querySelector('.message');
         const blinkElement = replyElement.querySelector('.placeholder-cursor');
         const chatContent = document.getElementById('chat-content');
         const userInput = document.getElementById('messageInput');
@@ -659,7 +656,7 @@ function connect() {
         });
 
         // 开始监听 element 的子节点变化
-        observer.observe(replyElement, {childList: true, subtree: true});
+        observer.observe(replyElement, { childList: true, subtree: true });
         if (receivedData.text && receivedData.text !== 'THE_END_哈哈哈') {
             isTyping = true;
             replyElement.style.whiteSpace = 'pre-line';
@@ -693,7 +690,6 @@ function connect() {
             observer.disconnect();
         }
         saveChatContent();
-        linksblank()
     });
 
 
@@ -833,7 +829,7 @@ function sendMessage() {
         isTyping = true;
 
         const userAvatar = '/static/img/user.png';
-        const replyAvatar = '/static/img/chat.svg';
+        const replyAvatar = '/static/img/chat.png';
         const userMessageId = `user-message-${Date.now()}`;
         const userMessage = `<div class="chat user" id="${userMessageId}"><span class="message">${escapeHtml(message)}</span><img src="${userAvatar}" alt="User"></div>`;
         const replyMessage = `<div class="chat reply" id="temporary-reply"><img src="${replyAvatar}" alt="Reply"><span class="message"><span class="placeholder-cursor"></span></span></div>`;
@@ -1114,37 +1110,27 @@ function loadmsg9() {
 }
 
 
-function linksblank() {
-  var links = document.getElementsByTagName('a');
-  for (var i = 0; i < links.length; i++) {
-    links[i].setAttribute('target', '_blank');
-  }
-}
-
-
-
-
 window.onload = function () {
-    loadChatContent();
-     linksblank();
+    showChatBox(true);
+    loadChatContent(); // 加载聊天记录
 }
 
 
 function adjustTextareaHeight(textarea) {
-// 记录当前滚动条位置
+    // 记录当前滚动条位置
     const scrollTop = textarea.scrollTop;
 
-// 重置输入框高度，以便正确计算新的滚动高度
+    // 重置输入框高度，以便正确计算新的滚动高度
     textarea.style.height = '100%';
 
-// 计算新的输入框高度
+    // 计算新的输入框高度
     const maxHeight = textarea.parentElement.offsetHeight * 0.8;
     const newHeight = Math.min(textarea.scrollHeight, maxHeight);
 
-// 更新输入框高度
+    // 更新输入框高度
     textarea.style.height = `${newHeight}px`;
 
-// 还原滚动条位置
+    // 还原滚动条位置
     textarea.scrollTop = scrollTop;
 }
 
@@ -1607,64 +1593,55 @@ function setDefaultOption() {
 document.addEventListener('DOMContentLoaded', function () {
     var savedOption = localStorage.getItem('selectedSite');
     if (!savedOption) {
-    setDefaultOption();}
+        setDefaultOption();
+    }
 });
 
 function closeModal() {
-      document.getElementById('colorPickerModal').style.display = 'none';
-      var dropdownContent = document.getElementById("siteSelectDiv");
-        dropdownContent.style.display = "none";
+    document.getElementById('colorPickerModal').style.display = 'none';
+    var dropdownContent = document.getElementById("siteSelectDiv");
+    dropdownContent.style.display = "none";
 }
 
 function handleClickOutside(event) {
-  var modal = document.getElementById('colorPickerModal');
-  if (event.target == modal) {
-    closeModal();
-  }
-}
-
-function resetStyles() {
-  messageInput.style.position = '';
-  messageInput.style.bottom = '';
-  messageInput.style.marginBottom = '';
-  messageInput.style.width = '';
-  messageInputWrapper.style.height = '';
-  messageInputWrapper.style.bottom = '';
+    var modal = document.getElementById('colorPickerModal');
+    if (event.target == modal) {
+        closeModal();
+    }
 }
 
 
 const messageInputWrapper = document.getElementById('messageInputWrapper');
 
 function updateMessageInputPosition() {
-const windowHeight = window.innerHeight;
-const wrapperRect = messageInputWrapper.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+    const wrapperRect = messageInputWrapper.getBoundingClientRect();
 
- resetStyles();
-
-if (wrapperRect.bottom > windowHeight) {
-  messageInput.style.position = 'fixed';
-  if (isMobileDevice()) {
-      messageInput.style.bottom = '10px';
-      messageInput.style.marginBottom = "30px"
-      messageInput.style.width = "calc(100% - 35px)"
-      messageInputWrapper.style.height = "0"
-      messageInputWrapper.style.bottom = '10px';
-  } else {
-        messageInput.style.bottom = '20px';
-        messageInput.style.marginBottom = "0"
-  }
-} else {
-  messageInput.style.position = 'absolute';
-  if (isMobileDevice()) {
-      messageInput.style.bottom = '10px';
-      messageInput.style.marginBottom = "30px"
-      messageInput.style.width = "calc(100% - 35px)"
-      messageInputWrapper.style.height = "0"
-      messageInputWrapper.style.bottom = '10px';
-  } else {
-  messageInput.style.bottom = '20px';
-  messageInput.style.marginBottom = "0"}
-}
+    if (wrapperRect.bottom > windowHeight) {
+        messageInput.style.position = 'fixed';
+        if (isMobileDevice()) {
+            messageInput.style.bottom = '10px';
+            messageInput.style.marginBottom = "30px"
+            messageInput.style.width = "calc(100% - 35px)"
+            messageInputWrapper.style.height = "0"
+            messageInputWrapper.style.bottom = '10px';
+        } else {
+            messageInput.style.bottom = '20px';
+            messageInput.style.marginBottom = "0"
+        }
+    } else {
+        messageInput.style.position = 'absolute';
+        if (isMobileDevice()) {
+            messageInput.style.bottom = '10px';
+            messageInput.style.marginBottom = "30px"
+            messageInput.style.width = "calc(100% - 35px)"
+            messageInputWrapper.style.height = "0"
+            messageInputWrapper.style.bottom = '10px';
+        } else {
+            messageInput.style.bottom = '20px';
+            messageInput.style.marginBottom = "0"
+        }
+    }
 }
 
 window.addEventListener('resize', updateMessageInputPosition);
