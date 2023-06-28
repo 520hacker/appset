@@ -29,7 +29,7 @@
 -  https://xinghuo.xfyun.cn/ 页面底部点 合作咨询
 -  填写表单 申请接入能力。
 
-部署说明
+### 部署说明
 
 - 已经实现好的docker image地址 odinluo/xunfei2ui 
 - 直接pull它， 然后注意在环境变量中更新 xunfei2gpt  的ip和端口，替换原 192.168.2.101:xxx 的内容为你的内容
@@ -79,7 +79,7 @@ It seems like you will need manual support to access the keys.
 - Go to https://xinghuo.xfyun.cn/ and click on "合作咨询" at the bottom of the page.
 - Fill out the form to apply for access capabilities.
 
-Deployment Instructions
+### Deployment Instructions
 
 - The Docker image has already been implemented at odinluo/xunfei2ui.
 - Simply pull it and pay attention to updating the IP and port of xunfei2gpt in the environment variables, replacing the original content of 192.168.2.101:xxx with your own.
