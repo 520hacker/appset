@@ -11,7 +11,7 @@
 ### 请略微注意
 
 - 本项目依然是以支持OPENAI为目标实现的，我只是改了一下部分连接信息，修改了某个小bug，然后添加了一下Docker发布。
-- 连接讯飞API依赖于我的另一个半成品项目 xunfei2gpt ，稍后开源, 其原理就是把讯飞的原本的websocket 的支持给转成OPENAI 的API 支持，没有办法现在兼容OPENAI的客户端更多一点。
+- 连接讯飞API依赖于我的另一个半成品项目 [xunfei2gpt](https://github.com/520hacker/xunfei2gpt) ，稍后开源, 其原理就是把讯飞的原本的websocket 的支持给转成OPENAI 的API 支持，没有办法现在兼容OPENAI的客户端更多一点。
 - 这个项目是一个半成品，如果需要深度GPT开发可以联系原创作者。
 - 欢迎交流讯飞API开发。
 
